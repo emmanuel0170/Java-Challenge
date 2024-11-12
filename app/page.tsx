@@ -9,7 +9,6 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Accordion,
   AccordionContent,
@@ -401,60 +400,58 @@ export default function Component() {
       </Card>
 
       <h2 className="text-3xl font-bold mb-6 text-center">Daily Challenges</h2>
-      <ScrollArea className="h-[calc(100vh-300px)]">
-        <Accordion type="multiple" value={expandedDays} className="w-full">
-          {challenges.map((dayChallenge) => (
-            <AccordionItem
-              key={dayChallenge.day}
-              value={`day-${dayChallenge.day}`}
+      <Accordion type="multiple" value={expandedDays} className="w-full">
+        {challenges.map((dayChallenge) => (
+          <AccordionItem
+            key={dayChallenge.day}
+            value={`day-${dayChallenge.day}`}
+          >
+            <AccordionTrigger
+              onClick={() => toggleDay(`day-${dayChallenge.day}`)}
             >
-              <AccordionTrigger
-                onClick={() => toggleDay(`day-${dayChallenge.day}`)}
-              >
-                <span className="text-xl font-semibold">
-                  Day {dayChallenge.day}: {dayChallenge.title}
-                </span>
-              </AccordionTrigger>
-              <AccordionContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {dayChallenge.challenges.map((challenge, index) => (
-                    <Card key={index} className="flex flex-col">
-                      <CardHeader>
-                        <div className="flex justify-between items-center">
-                          <CardTitle className="text-lg">
-                            {challenge.title}
-                          </CardTitle>
-                          <Badge
-                            variant={
-                              challenge.difficulty === "Easy"
-                                ? "secondary"
-                                : challenge.difficulty === "Medium"
-                                ? "default"
-                                : challenge.difficulty === "Hard"
-                                ? "destructive"
-                                : "outline"
-                            }
-                          >
-                            {challenge.difficulty}
-                          </Badge>
-                        </div>
-                      </CardHeader>
-                      <CardContent className="flex-grow">
-                        <p>{challenge.description}</p>
-                      </CardContent>
-                      <CardFooter>
-                        <Badge variant="secondary">
-                          Bsc. AI & ML (Java Challenge)
+              <span className="text-xl font-semibold">
+                Day {dayChallenge.day}: {dayChallenge.title}
+              </span>
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {dayChallenge.challenges.map((challenge, index) => (
+                  <Card key={index} className="flex flex-col">
+                    <CardHeader>
+                      <div className="flex justify-between items-center">
+                        <CardTitle className="text-lg">
+                          {challenge.title}
+                        </CardTitle>
+                        <Badge
+                          variant={
+                            challenge.difficulty === "Easy"
+                              ? "secondary"
+                              : challenge.difficulty === "Medium"
+                              ? "default"
+                              : challenge.difficulty === "Hard"
+                              ? "destructive"
+                              : "outline"
+                          }
+                        >
+                          {challenge.difficulty}
                         </Badge>
-                      </CardFooter>
-                    </Card>
-                  ))}
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </ScrollArea>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                      <p>{challenge.description}</p>
+                    </CardContent>
+                    <CardFooter>
+                      <Badge variant="secondary">
+                        Bsc. AI & ML (Java Challenge)
+                      </Badge>
+                    </CardFooter>
+                  </Card>
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
     </div>
   );
 }
